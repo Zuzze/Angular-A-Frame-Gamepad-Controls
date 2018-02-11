@@ -1,6 +1,7 @@
-# Angular3Ddemo
+# Angular 3D demo
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.4.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.4. and Angular 5.
+Template uses A-Frame inside an Angular component that can be used to show 3D environments on browser, also in VR and with custom 3D objects (.gltf).
 
 ## Development server
 
