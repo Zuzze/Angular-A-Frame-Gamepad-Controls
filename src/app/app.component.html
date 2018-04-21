@@ -1,18 +1,18 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Angular WebVR Demo
-  </h1>
-  <img width="30" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+<div id="main">
+    <img alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+    <img alt="aframe logo" src="https://cdn-images-1.medium.com/max/512/1*oORAGqcJB-2MBl0Dt65D4Q.png"/>
+    <img alt="aframe logo" src="https://img00.deviantart.net/25b9/i/2011/330/d/1/xbox_desktop_icon_by_dracogradezero-d4hcb91.png"/>
+    <h1>Angular2 & A-Frame Gamepad Controls Demo (X-box)</h1>
+    <p>Connected controller: {{controller.id}}</p>
+    <p>Ball Status: {{ballStatus}}</p>
 </div>
-<div id="vrview" #viewer>
-  <a-scene proxy-controls>
-      <a-camera id="camera" position="0 1.6 0" gamepad-controls look-controls>
-        <a-cursor color="#123456"></a-cursor>
+<div id="vrview">
+  <a-scene proxy-controls embedded>
+      <a-camera id="camera" position="0 1.6 0">
+        <a-cursor id="cursor" downEvents="gamepadbuttondown" upEvents="gamepadbuttonup" color="#123456" gamepad-controls></a-cursor>
       </a-camera>
-      <a-entity position="0 2 -3" gltf-model="../assets/scene.gltf"></a-entity>
-      <a-box id="box" position="-1 0.5 1" rotation="0 45 0" width="1" height="1" depth="1"  color="#4CC3D9"></a-box>
-      <a-plane rotation="-90 0 0" width="10" height="10" color="#7BC8A4"></a-plane>
-      <a-sky color="lightblue"></a-sky>
+      <a-sphere id="ball" position="0 0 -3" scale="1 1 1"  color="#F4F1BB"></a-sphere>
+      <a-plane rotation="-90 0 0" width="10" height="10" color="#3F220F"></a-plane>
+      <a-sky color="#9AE5E6"></a-sky>
   </a-scene>
 </div>
