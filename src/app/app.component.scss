@@ -1,3 +1,21 @@
-#viewer {
+#vrview {
+    margin: auto;
+    width: 90vw;
+    height: 45vh;
+}
 
+#main {
+
+    text-align: center;
+    background: white;
+    font-family: sans-serif;
+
+    h1 {
+        color: black;
+    }
+
+    img {
+        height: 50px;
+        margin-top: 1vh;
+    }
 }
