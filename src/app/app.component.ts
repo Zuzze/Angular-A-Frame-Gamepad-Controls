@@ -17,6 +17,7 @@ export class AppComponent {
   hovered: any;
   selected: any; //with gamepad
   ballStatus: string = "Untouched";
+  controllerStatus: string = "None"
 
   constructor(ref: ElementRef) {
     this.elem = ref.nativeElement;
@@ -30,7 +31,7 @@ export class AppComponent {
     //traditional event listeners for ball
     this.ball.addEventListener("click", (event) => {
       this.ballStatus = "Clicked with mouse";
-      this.ball.setAttribute("color", "#E87EA1")
+      this.ball.setAttribute("color", "#E87EA1");
     });
     this.ball.addEventListener("mouseenter", (event) => {
       this.ballStatus = "Hovered";
@@ -39,43 +40,50 @@ export class AppComponent {
     });
     this.ball.addEventListener("mouseleave", (event) => {
       this.ballStatus = "Untouched";
-      this.ball.setAttribute("color", "#F4F1BB")
+      this.ball.setAttribute("color", "#F4F1BB");
       this.hovered = null;
     });
-    this.initController();
 
-  //note that gamepad controls require that it is added to base element, not to the target
-  //there is currently no support to get target from gamepadbuttondown event
-  //--> add global hover variable for interactive elements, telling where the cursor is 
-  //and use that when button is pressed
-  this.elem.addEventListener('gamepadbuttondown', (event) => {
-    console.log(`Button ${event.detail.index} has been pressed in the gamepad.`);
-    if(this.hovered){
-      this.selected = this.hovered;
-      this.ballStatus = "Clicked with gamepad";
-      this.hovered.setAttribute("color", 	"#E63946");
-    }
-  });
-}
-
-  private initController(){
-    window.addEventListener('gamepadconnected', function(e) {
+    //detect if controller is connected/disconnected
+    window.addEventListener('gamepadconnected', (event) => {
       console.log("controller connected");
+      this.initController();
     });
-    window.addEventListener('gamepaddisconnected', function(e) {
-      console.log("controller disconnected")
+    window.addEventListener('gamepaddisconnected', (event) => {
+      console.log("controller disconnected");
+      this.controllerStatus = "None";
       this.controller = null;
     });
 
+    this.initController();
+
+    //note that gamepad controls require that it is added to base element, not to the target
+    //there is currently no support to get target from gamepadbuttondown event
+    //--> add global hover variable for interactive elements, telling where the cursor is 
+    //and use that when button is pressed
+    this.elem.addEventListener('gamepadbuttondown', (event) => {
+      console.log(`Button ${event.detail.index} has been pressed in the gamepad.`);
+      if(this.hovered){
+        this.selected = this.hovered;
+        this.ballStatus = "Clicked with gamepad";
+        this.hovered.setAttribute("color", 	"#E63946");
+      }
+    });
+  }
+
+  private initController(){
     //find xbox controller from connected controllers
     var gamepads = navigator.getGamepads();// Array[Gamepad]
-    for(let g of gamepads){
-      if(g && g.id.toLowerCase().startsWith("xbox")){
-        console.log("xbox controller connected");
-        console.log(g);
-        this.controller = g;
-        this.cursor.setAttribute("gamepad-controls", `controller: ${g.index}; enabled: true`);
-        break;
+    if(gamepads){
+      for(let g of gamepads){
+        if(g && g.id.toLowerCase().startsWith("xbox")){
+          console.log("xbox controller connected");
+          console.log(g);
+          this.controller = g;
+          this.cursor.setAttribute("gamepad-controls", `controller: ${g.index}; enabled: true`);
+          this.controllerStatus = this.controller.id;
+          break;
+        }
       }
     }
   }
